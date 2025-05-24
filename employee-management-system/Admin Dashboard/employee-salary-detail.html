@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Employee Salary Detail (View Only)</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 30px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #c41c1c;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 25px 40px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      text-align: center;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #c41c1c;
+      color: white;
+    }
+    .back-btn {
+      background-color: #c41c1c;
+      color: white;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .chart-container {
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <button class="back-btn" onclick="goBack()">← Back to Manage Salary</button>
+    <h1>Employee Salary Detail</h1>
+    <div id="employeeInfo"></div>
+
+    <table id="salaryHistoryTable">
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Basic Salary (₹)</th>
+          <th>Bonus (₹)</th>
+          <th>Deductions (₹)</th>
+          <th>Net Pay (₹)</th>
+          <th>Status</th>
+          <!-- Removed Actions column -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Salary history rows -->
+      </tbody>
+    </table>
+
+    <div class="chart-container">
+      <canvas id="hikeDeductionChart" width="900" height="400"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Simulated data
+    const urlParams = new URLSearchParams(window.location.search);
+    const empId = urlParams.get('empId') || 'E001';
+
+    const employeeDetails = {
+      E001: {name: 'John Doe', department: 'Engineering'},
+      E002: {name: 'Jane Smith', department: 'Marketing'},
+      E003: {name: 'Mike Johnson', department: 'Sales'},
+      E004: {name: 'Sara Williams', department: 'HR'}
+    };
+
+    let salaryHistory = {
+      E001: [
+        {month: 'January', basic: 28000, bonus: 1500, deductions: 1000, status: 'Paid'},
+        {month: 'February', basic: 29000, bonus: 1800, deductions: 800, status: 'Paid'},
+        {month: 'March', basic: 30000, bonus: 2000, deductions: 1000, status: 'Paid'},
+        {month: 'April', basic: 30000, bonus: 2000, deductions: 1000, status: 'Pending'},
+      ],
+      E002: [
+        {month: 'January', basic: 34000, bonus: 1300, deductions: 700, status: 'Paid'},
+        {month: 'February', basic: 34500, bonus: 1400, deductions: 500, status: 'Paid'},
+        {month: 'March', basic: 35000, bonus: 1500, deductions: 500, status: 'Paid'},
+        {month: 'April', basic: 35000, bonus: 1500, deductions: 500, status: 'Paid'},
+      ],
+      E003: [
+        {month: 'January', basic: 26000, bonus: 1100, deductions: 900, status: 'Paid'},
+        {month: 'February', basic: 27000, bonus: 1150, deductions: 1000, status: 'Paid'},
+        {month: 'March', basic: 28000, bonus: 1200, deductions: 800, status: 'Pending'},
+        {month: 'April', basic: 28000, bonus: 1200, deductions: 800, status: 'Pending'},
+      ],
+      E004: [
+        {month: 'January', basic: 31000, bonus: 1600, deductions: 600, status: 'Paid'},
+        {month: 'February', basic: 31500, bonus: 1700, deductions: 700, status: 'Paid'},
+        {month: 'March', basic: 32000, bonus: 1800, deductions: 600, status: 'Paid'},
+        {month: 'April', basic: 32000, bonus: 1800, deductions: 600, status: 'Paid'},
+      ],
+    };
+
+    // Calculate net pay helper
+    function calcNetPay(salary) {
+      return salary.basic + salary.bonus - salary.deductions;
+    }
+
+    function renderEmployeeDetails(empId) {
+      const emp = employeeDetails[empId];
+      if(!emp) {
+        document.getElementById('employeeInfo').innerHTML = `<p><strong>Employee not found.</strong></p>`;
+        return;
+      }
+      document.getElementById('employeeInfo').innerHTML = `
+        <p><strong>Name:</strong> ${emp.name}</p>
+        <p><strong>Employee ID:</strong> ${empId}</p>
+        <p><strong>Department:</strong> ${emp.department}</p>
+      `;
+    }
+
+    function renderSalaryHistory(empId) {
+      const history = salaryHistory[empId] || [];
+      const tbody = document.querySelector('#salaryHistoryTable tbody');
+      tbody.innerHTML = '';
+
+      if(history.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6">No salary history found.</td></tr>';
+        return;
+      }
+
+      history.forEach((sal) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${sal.month}</td>
+          <td>${sal.basic.toLocaleString()}</td>
+          <td>${sal.bonus.toLocaleString()}</td>
+          <td>${sal.deductions.toLocaleString()}</td>
+          <td>${calcNetPay(sal).toLocaleString()}</td>
+          <td>${sal.status}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderChart(empId) {
+      const history = salaryHistory[empId] || [];
+      const months = history.map(h => h.month);
+      const hikes = [];
+      const deductions = [];
+
+      for(let i=0; i<history.length; i++) {
+        if(i === 0) {
+          hikes.push(0);
+        } else {
+          hikes.push(history[i].basic - history[i-1].basic);
+        }
+        deductions.push(history[i].deductions);
+      }
+
+      const ctx = document.getElementById('hikeDeductionChart').getContext('2d');
+
+      if(window.salaryChart) window.salaryChart.destroy();
+
+      window.salaryChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: months,
+          datasets: [
+            {
+              label: 'Hikes (₹)',
+              data: hikes,
+              backgroundColor: 'rgba(40, 167, 69, 0.7)',
+            },
+            {
+              label: 'Deductions (₹)',
+              data: deductions,
+              backgroundColor: 'rgba(220, 53, 69, 0.7)',
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Monthly Salary Hikes and Deductions',
+              font: { size: 18 }
+            },
+            legend: {
+              position: 'top'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: { display: true, text: 'Amount (₹)' }
+            }
+          }
+        }
+      });
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+
+    // On load
+    renderEmployeeDetails(empId);
+    renderSalaryHistory(empId);
+    renderChart(empId);
+  </script>
+
+</body>
+</html>

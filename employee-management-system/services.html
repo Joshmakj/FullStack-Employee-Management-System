@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Services - SoftPro Software Solutions</title>
+  
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #fff;
+      color: #222;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      padding: 6rem 1rem;
+      position: relative;
+      top:100px;
+      color: #fff;
+    }
+
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(224, 62, 62, 0.75);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+    
+    .logo {
+      font-family: 'Space Grotesk', sans-serif !important;
+      /* font-size: 1.8rem; */
+      color: #000;
+      display: flex;
+      align-items: center;
+      gap: 9.2px;
+       font-size: 24px;
+  font-weight: 700;
+  cursor: default;
+  user-select: none;
+  flex-shrink: 0;
+  margin-left: 0px;
+    margin-top: 0px;
+    }
+    .logo i{
+         margin-top: 2px !important;
+    }
+    .logo svg {
+      width: 40px;
+      height: 40px;
+      fill: none;
+      stroke: #e60000;
+      stroke-width: 3;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+    .logo span {
+      color: #e60000;
+      font-weight: 700;
+      font-family: 'inte', sans-serif !important;
+    }
+/* Focus styles */
+a:focus,
+button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Header */
+header {
+  /* border:1px solid red; */
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 50px;
+  margin: 20px auto;
+  width: 1300px;
+  /* position: fixed;  fixed on homepage, relative on about page - but keeping fixed for consistency 
+  z-index: 1000; */
+  margin-left: 100px;
+
+  justify-content: center;
+  gap: 60px; 
+  height:68.8px;
+  font-family: 'Inter', sans-serif !important;
+  
+}
+
+.headersection{
+  font-family: 'Inter', sans-serif !important;
+  position:fixed;
+  /* border:1px solid red; */
+  width:100%;
+  z-index: 1001;
+  background-color: white;
+  height:100px;
+  margin: auto;
+  
+}
+
+/* .logo {
+  font-size: 24px;
+  font-weight: 700;
+  cursor: default;
+  user-select: none;
+  flex-shrink: 0;
+  margin-left: 120px;
+} */
+
+nav {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 15px;
+}
+
+/* Main menu centered */
+.main-menu {
+  list-style: none;
+  display: flex;
+  
+  justify-content: center;
+  flex-grow: 1;
+  width:700px;
+  height:19.2px;
+  margin:-7px 0px 0px -80px  !important; 
+  letter-spacing: 0px !important;
+  gap:30px !important;
+
+  margin-left: -72.9px;
+  margin-right: 7.5px;
+}
+
+
+.main-menu li a {
+  text-decoration: none;
+  color: var(--text-color);
+  /* font-weight: 500; */
+  transition: color 0.3s ease;
+  /* position: relative; */
+  /* margin-left: 10px; */
+}
+
+.main-menu li a:hover,
+.main-menu li a.active {
+  color: red;
+}
+
+/* Hover color override */
+.main-menu li a:hover {
+  color: red;
+}
+
+/* Social menu aligned right */
+.social-menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top:16px !important;
+  
+ 
+}
+
+
+.social-menu li i {
+  color: var(--text-color);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-size: 18px;
+}
+
+.social-menu li i:hover {
+  color: var(--primary-color);
+}
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Services Section */
+    .services-section {
+      padding: 4rem 0;
+      display: grid;
+      gap: 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      position: relative;
+      top:150px;
+    }
+
+    .service-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(224, 62, 62, 0.13), 0 1.5px 4px rgba(0,0,0,0.04);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      padding-bottom: 1.5rem;
+      cursor: pointer;
+      animation: fadeInUp 0.8s;
+    }
+    .service-card:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 16px 40px rgba(224, 62, 62, 0.22), 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .service-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-top-left-radius: 18px;
+      border-top-right-radius: 18px;
+      transition: transform 0.3s;
+    }
+    .service-card:hover img {
+      transform: scale(1.06) rotate(-1deg);
+      filter: brightness(0.92);
+    }
+    .service-text {
+      padding: 1.5rem 1.2rem 0.5rem 1.2rem;
+      text-align: center;
+    }
+    .service-text h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.65rem;
+      color: #e03e3e;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+    .service-text h2::after {
+      content: '';
+      display: block;
+      margin: 0.5rem auto 0 auto;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, #e03e3e 60%, #ffb199 100%);
+      border-radius: 2px;
+      opacity: 0.5;
+    }
+    .service-text p {
+      font-size: 1.05rem;
+      color: #444;
+      margin-top: 1rem;
+      min-height: 56px;
+      line-height: 1.6;
+    }
+    /* Add a floating icon for each card */
+    .service-card .service-icon {
+      position: absolute;
+      top: 145px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(224,62,62,0.10);
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #e03e3e;
+      z-index: 2;
+      transition: background 0.3s, color 0.3s;
+    }
+    .service-card:hover .service-icon {
+      background: #e03e3e;
+      color: #fff;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* Why Choose Us */
+    .why-choose-us {
+      background: #fef3f3;
+      padding: 4rem 2rem;
+      text-align: center;
+      position:relative;
+      top:140px;
+      border-radius: 18px;
+      box-shadow: 0 2px 16px rgba(224,62,62,0.07);
+      margin-bottom: 2rem;
+    }
+
+    .why-choose-us h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #e03e3e;
+    }
+
+    .why-choose-us ul {
+      list-style: none;
+      padding: 0;
+      max-width: 800px;
+      margin: auto;
+      text-align: left;
+    }
+
+    .why-choose-us li {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .why-choose-us li::before {
+      content: '✔';
+      color: #e03e3e;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    /* CTA Banner */
+    .cta-banner {
+      background-color: #e03e3e;
+      color: #fff;
+      text-align: center;
+      padding: 3rem 2rem;
+      position: relative;
+      top:140px;
+      border-radius: 18px;
+      margin-bottom: 2rem;
+    }
+
+    .cta-banner h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-banner p {
+      font-size: 1.1rem;
+    }
+
+    .cta-banner a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+   footer{
+    position: relative;
+    top:142px;
+   }
+
+   .main-menu{
+    margin-left:-170 !important ;
+   }
+
+    @media (max-width: 600px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .hero-content p {
+        font-size: 1.1rem;
+      }
+      .service-card .service-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.3rem;
+        top: 130px;
+      }
+    }
+    
+/* Footer */
+footer {
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 40px 30px;
+  text-align: center;
+  border-top: 1px solid #eee;
+  font-family: 'Inter', sans-serif;
+  position: absolute;
+  top:2300px;
+}
+
+.footer-container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  text-align: left;
+}
+
+.footer-logo-section,
+.footer-links-section,
+.footer-social-section {
+  flex: 1 1 300px;
+}
+
+.footer-logo-section h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.footer-logo-section p {
+  color: var(--subtext-color);
+  font-size: 14px;
+}
+
+.footer-links-section h4,
+.footer-social-section h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+margin-bottom: 8px;
+}
+
+.footer-links li a {
+color: var(--subtext-color);
+text-decoration: none;
+font-size: 14px;
+transition: color 0.3s ease;
+}
+
+.footer-links li a:hover {
+color: var(--primary-color);
+}
+
+.footer-social-icons {
+display: flex;
+gap: 15px;
+font-size: 18px;
+}
+
+.footer-social-icons a {
+color: var(--subtext-color);
+transition: color 0.3s ease;
+}
+
+.footer-social-icons a:hover {
+color: var(--primary-color);
+}
+
+/* Bottom copyright */
+.footer-bottom {
+margin-top: 30px;
+border-top: 1px solid #eee;
+padding-top: 20px;
+color: var(--subtext-color);
+font-size: 14px;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Exact navbar from index.html with CoreEdge symbol and all icons -->
+  <section class="headersection">
+    <header>
+      <div class="logo">
+        <i class="bi bi-lightning-charge-fill"></i>
+        Core<span>Edge</span>
+      </div>
+      <nav>
+        <ul class="main-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html" class="active">Services</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="login.html">Login</a></li>
+         
+          <li><a href="jobportal.html">Job Portal</a></li>
+        </ul>
+        <ul class="social-menu">
+          <li><a href="https://x.com/"><i class="fas fa-times"></i></a></li>
+          <li><a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a></li>
+          <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
+          <li><a href="https://www.linkedin.com/"><i class="fab fa-linkedin"></i></a></li>
+        </ul>
+      </nav>
+    </header>
+  </section>
+
+  <main>
+    <section class="hero-section">
+      <div class="container hero-content">
+        <h1>Our Services</h1>
+        <p>Empowering businesses through intelligent and scalable digital solutions.</p>
+      </div>
+    </section>
+
+    <section class="services-section container">
+      <!-- Repeatable Service Cards with better style and icons -->
+      <article class="service-card">
+        <img src="assets/img/servicecard1.jpg" alt="Custom Software Development" />
+        <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+        <div class="service-text">
+          <h2>Software Development</h2>
+          <p>Scalable enterprise-grade applications crafted to meet your unique challenges.</p>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <img src="assets/img/servicecard2.jpg" alt="Mobile App Development" />
+        <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+        <div class="service-text">
+          <h2>Mobile App Development</h2>
+          <p>High-performance mobile solutions for Android and iOS users, built with precision.</p>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" alt="Cloud Solutions" />
+        <div class="service-icon"><i class="fas fa-cloud"></i></div>
+        <div class="service-text">
+          <h2>Cloud Solutions</h2>
+          <p>Infrastructure, DevOps, and cloud migration services to modernize your business.</p>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=600&q=80" alt="UI/UX Design" />
+        <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+        <div class="service-text">
+          <h2>UI/UX Design</h2>
+          <p>User-centered interfaces that engage, convert, and build brand trust.</p>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=600&q=80" alt="Data Analytics" />
+        <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="service-text">
+          <h2>Data Analytics</h2>
+          <p>Extract insights from your data to drive smarter, evidence-based decisions.</p>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="DevOps & Automation" />
+        <div class="service-icon"><i class="fas fa-cogs"></i></div>
+        <div class="service-text">
+          <h2>DevOps & Automation</h2>
+          <p>CI/CD pipelines, containers, and infrastructure as code to speed delivery cycles.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="why-choose-us">
+      <h2>Why Choose CoreEdge ?</h2>
+      <ul>
+        <li>Proven track record with 100+ successful projects delivered</li>
+        <li>Dedicated expert teams fluent in modern technologies</li>
+        <li>Transparent, agile development with client collaboration</li>
+        <li>On-time delivery backed by ongoing support and maintenance</li>
+        <li>Trusted by startups, enterprises, and government agencies worldwide</li>
+      </ul>
+    </section>
+
+    <section class="cta-banner">
+      <h2>Let's Turn Your Idea into Reality</h2>
+      <p>Partner with us to build transformative digital experiences. <a href="contact.html">Contact us →</a></p>
+    </section>
+  </main>
+  <!-- Footer -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-logo-section">
+        <h3>CoreEdge</h3>
+        <p>Crafting exceptional digital experiences through design and development excellence.</p>
+      </div>
+      <div class="footer-links-section">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-social-section">
+        <h4>Follow Us</h4>
+        <div class="footer-social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 EasyFolio. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+ 
+</body>
+</html>

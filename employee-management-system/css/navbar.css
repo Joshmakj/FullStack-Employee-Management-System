@@ -1,0 +1,145 @@
+:root {
+  
+  --text-color: #1b1f2e;
+  --subtext-color: #64748b;
+  --background-light: #fff;
+}
+header{
+  height: 68.8px;
+}
+
+/* Reset and base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: white;
+  color: var(--text-color);
+  overflow-x: hidden;
+}
+   .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      color: #000;
+      display: flex;
+      align-items: center;
+      gap: 9.2px;
+    }
+    .logo svg {
+      width: 40px;
+      height: 40px;
+      fill: none;
+      stroke: #e60000;
+      stroke-width: 3;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+    .logo span {
+      color: #e60000;
+      font-weight: 700;
+       font-family: 'inte', sans-serif !important;
+    }
+/* Focus styles */
+a:focus,
+button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Header */
+header {
+  /* border:1px solid red; */
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  background-color: var(--background-light);
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 50px;
+  margin: 20px auto;
+  width: 1300px;
+  /* position: fixed;  fixed on homepage, relative on about page - but keeping fixed for consistency 
+  z-index: 1000; */
+  margin-left: 100px;
+
+  justify-content: center;
+  gap: 60px; 
+}
+
+.headersection{
+  position:fixed;
+  /* border:1px solid red; */
+  width:100%;
+  z-index: 1001;
+  background-color: var(--background-light);
+  height:100px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  cursor: default;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+nav {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 15px;
+}
+
+/* Main menu centered */
+.main-menu {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-grow: 1;
+  margin-left: -80px;
+}
+
+.main-menu li a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: color 0.3s ease;
+  border:none;
+  cursor: pointer;
+
+}
+
+.main-menu li a:hover,
+.main-menu li a.active {
+  color: red;
+}
+
+/* Hover color override */
+.main-menu li a:hover {
+  color: red;
+}
+
+/* Social menu aligned right */
+.social-menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.social-menu li i {
+  color: black;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-size: 18px;
+
+}
+
+.social-menu li i:hover {
+  color: red;
+}

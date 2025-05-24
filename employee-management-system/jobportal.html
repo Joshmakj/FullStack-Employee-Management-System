@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dream Job Finder</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: white;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 80px 7%;
+      gap: 60px;
+    }
+
+    .hero-left {
+      position: relative;
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .hero-left img {
+      width: 100%;
+      border-radius: 20px;
+    }
+
+    .job-badge {
+      position: absolute;
+      top: 30%;
+      left: 65%;
+      background: white;
+      color: #0d9488;
+      font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      font-size: 16px;
+    }
+
+    .job-badge span {
+      display: block;
+      color: #888;
+      font-weight: 400;
+      font-size: 13px;
+    }
+
+    .review-card {
+      position: absolute;
+      bottom: -30px;
+      left: 20px;
+      background: white;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .avatars img {
+      border-radius: 50%;
+      border: 2px solid #fff;
+      width: 30px;
+      height: 30px;
+      margin-left: -10px;
+    }
+
+    .stars {
+      color: #ffa500;
+      font-size: 14px;
+    }
+
+    .hero-right {
+      flex: 1;
+      min-width: 300px;
+      max-width: 600px;
+      padding-right: 20px;
+    }
+
+    .hero-right h1 {
+      font-size: 44px;
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 30px;
+    }
+
+    .hero-right h1 span {
+      color: red;
+    }
+
+    .hero-right p {
+      margin-bottom: 18px;
+      font-size: 17px;
+      color: #555;
+    }
+
+    .subheadline {
+      font-weight: 700;
+      font-size: 15px;
+      color: #222;
+      margin-top: 25px;
+      margin-bottom: 12px;
+    }
+
+    .search-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .search-bar input,
+    .search-bar select {
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      flex: 1;
+      font-size: 15px;
+      min-width: 140px;
+    }
+
+    .search-bar button {
+      background: red;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .popular a {
+      color: #2563eb;
+      margin-right: 10px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .popular {
+      margin-top: 10px;
+    }
+
+    .section {
+      padding: 60px 20px;
+      max-width: 1400px;
+      margin: auto;
+      position: relative;
+      top: 600px;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      text-align: center;
+      color: black;
+      font-size: 38px;
+      font-weight: 900;
+    }
+
+    .jobs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 40px;
+    }
+
+    .job-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.5s ease forwards;
+      opacity: 0;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .job-card:nth-child(n) {
+      animation-delay: calc(0.1s * var(--i));
+    }
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .job-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+
+    .job-card-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+
+    .job-card-header img {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .job-card-header h3 {
+      font-size: 1.4rem;
+      color: #d10000;
+      font-weight: 700;
+    }
+
+    .job-card-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .job-card-details span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .job-card-details i {
+      color: #f97316;
+    }
+
+    .job-card-content p {
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .job-card-content .buttons {
+      display: flex;
+      gap: 10px;
+      align-self: flex-start;
+    }
+
+    .job-card-content button {
+      background: #ff1a1a;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .job-card-content button:hover {
+      background: #cc0000;
+      transform: translateY(-2px);
+    }
+
+    .job-card-content .know-more {
+      background: transparent;
+      color: #ff1a1a;
+      border: 2px solid #ff1a1a;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    }
+
+    .job-card-content .know-more:hover {
+      background: #ff1a1a;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        padding: 40px 5%;
+      }
+
+      .hero-right h1 {
+        font-size: 36px;
+      }
+
+      .jobs {
+        grid-template-columns: 1fr;
+      }
+
+      .job-card-header img {
+        width: 40px;
+        height: 40px;
+      }
+
+      .job-card-header h3 {
+        font-size: 1.2rem;
+      }
+    }
+
+    footer {
+      width: 100%;
+      background-color: #f8f9fa;
+      padding: 40px 30px;
+      text-align: center;
+      border-top: 1px solid #eee;
+      font-family: 'Inter', sans-serif;
+      position: absolute;
+      top: 1700px;
+    }
+
+    .footer-container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      text-align: left;
+    }
+
+    .footer-logo-section,
+    .footer-links-section,
+    .footer-social-section {
+      flex: 1 1 300px;
+    }
+
+    .footer-logo-section h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-color);
+      margin-bottom: 10px;
+    }
+
+    .footer-logo-section p {
+      color: var(--subtext-color);
+      font-size: 14px;
+    }
+
+    .footer-links-section h4,
+    .footer-social-section h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 10px;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 8px;
+    }
+
+    .footer-links li a {
+      color: var(--subtext-color);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links li a:hover {
+      color: var(--primary-color);
+    }
+
+    .footer-social-icons {
+      display: flex;
+      gap: 15px;
+      font-size: 18px;
+    }
+
+    .footer-social-icons a {
+      color: var(--subtext-color);
+      transition: color 0.3s ease;
+    }
+
+    .footer-social-icons a:hover {
+      color: var(--primary-color);
+    }
+
+    .footer-bottom {
+      margin-top: 30px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+      color: var(--subtext-color);
+      font-size: 14px;
+    }
+ 
+    .logo {
+      font-family: 'Space Grotesk', sans-serif !important;
+      /* font-size: 1.8rem; */
+      color: #000;
+      display: flex;
+      align-items: center;
+      gap: 9.2px;
+       font-size: 24px;
+  font-weight: 700;
+  cursor: default;
+  user-select: none;
+  flex-shrink: 0;
+  margin-left: 0px;
+    }
+    .logo svg {
+      width: 40px;
+      height: 40px;
+      fill: none;
+      stroke: #e60000;
+      stroke-width: 3;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    margin-top: -1px;
+    }
+    .logo i{
+         margin-top: 2px !important;
+    }
+    .logo span {
+      color: #e60000;
+      font-weight: 700;
+      font-family: 'inte', sans-serif !important;
+    }
+/* Focus styles */
+a:focus,
+button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Header */
+header {
+  /* border:1px solid red; */
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 50px;
+  margin: 20px auto;
+  width: 1300px;
+  /* position: fixed;  fixed on homepage, relative on about page - but keeping fixed for consistency 
+  z-index: 1000; */
+  margin-left: 100px;
+
+  justify-content: center;
+  gap: 60px; 
+  height:68.8px;
+  font-family: 'Inter', sans-serif !important;
+  
+}
+
+.headersection{
+  font-family: 'Inter', sans-serif !important;
+  position:fixed;
+  /* border:1px solid red; */
+  width:100%;
+  z-index: 1001;
+  background-color: white;
+  height:100px;
+  margin: auto;
+  
+}
+
+/* .logo {
+  font-size: 24px;
+  font-weight: 700;
+  cursor: default;
+  user-select: none;
+  flex-shrink: 0;
+  margin-left: 120px;
+} */
+
+nav {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 15px;
+}
+
+/* Main menu centered */
+.main-menu {
+  list-style: none;
+  display: flex;
+  
+  justify-content: center;
+  flex-grow: 1;
+  width:700px;
+  height:19.2px;
+  margin:-7px 0px 0px -80px  !important; 
+  letter-spacing: 0px !important;
+  gap:30px !important;
+
+  margin-left: -72.9px;
+  margin-right: 7.5px;
+}
+
+
+.main-menu li a {
+  text-decoration: none;
+  color: var(--text-color);
+  /* font-weight: 500; */
+  transition: color 0.3s ease;
+  /* position: relative; */
+  /* margin-left: 10px; */
+}
+
+.main-menu li a:hover,
+.main-menu li a.active {
+  color: red;
+}
+
+/* Hover color override */
+.main-menu li a:hover {
+  color: red;
+}
+
+/* Social menu aligned right */
+.social-menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top:0px !important;
+  
+ 
+}
+
+
+.social-menu li i {
+  color: var(--text-color);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-size: 18px;
+}
+
+.social-menu li i:hover {
+  color: var(--primary-color);
+}
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid none;
+      padding: 90px 30px;
+      width: 80%;
+      margin: auto;
+      gap: 60px;
+      margin-left: 110px;
+      position: absolute;
+      top: 100px;
+      background-color: white;
+    }
+
+    .hero-text {
+      max-width: 600px;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.2s;
+      opacity: 0;
+    }
+
+    .hero-text h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--text-color);
+      margin-bottom: 24px;
+      line-height: 1.25;
+    }
+
+    .hero-text p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--subtext-color);
+      margin-bottom: 40px;
+      max-width: 90%;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      
+    }
+    .buttons button{
+      width:116.8px;
+      height: 45.6px;
+    }
+
+    .buttons .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 6px 12px rgba(249, 115, 22, 0.3);
+      white-space: nowrap;
+    }
+
+    .buttons .btn-primary:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(230, 90, 0, 0.4);
+    }
+
+    .buttons .btn-outline {
+      padding: 14px 32px;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 16px;
+      background-color: transparent;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .buttons .btn-outline:hover {
+      background-color: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .stats {
+      display: flex;
+      gap: 60px;
+      margin-top: 20px;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 110px;
+    }
+
+    .stat-item h2 {
+      font-size: 36px;
+      color: var(--text-color);
+      font-weight: 700;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 1s;
+      opacity: 0;
+      margin-bottom: 6px;
+      white-space: nowrap;
+    }
+
+    .stat-item p {
+      color: var(--subtext-color);
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    
+    .logo {
+      font-family: 'Space Grotesk', sans-serif !important;
+      /* font-size: 1.8rem; */
+      color: #000;
+      display: flex;
+      align-items: center;
+      gap: 9.2px;
+       font-size: 24px;
+  font-weight: 700;
+  cursor: default;
+  user-select: none;
+  flex-shrink: 0;
+  margin-left: 0px;
+    }
+    .logo svg {
+      width: 40px;
+      height: 40px;
+      fill: none;
+      stroke: #e60000;
+      stroke-width: 3;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+    .logo span {
+      color: #e60000;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif !important;
+    }
+/* Focus styles */
+a:focus,
+button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Header */
+header {
+  /* border:1px solid red; */
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  background-color: var(--background-light);
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 50px;
+  margin: 20px auto;
+  width: 1300px;
+  /* position: fixed;  fixed on homepage, relative on about page - but keeping fixed for consistency 
+  z-index: 1000; */
+  margin-left: 100px;
+
+  justify-content: center;
+  gap: 60px; 
+  height:68.8px;
+  font-family: 'Inter', sans-serif !important;
+  
+}
+
+.headersection{
+  position:fixed;
+  /* border:1px solid red; */
+  width:100%;
+  z-index: 1001;
+  background-color: white;
+  height:100px;
+  margin: auto;
+  
+}
+
+/* .logo {
+  font-size: 24px;
+  font-weight: 700;
+  cursor: default;
+  user-select: none;
+  flex-shrink: 0;
+  margin-left: 120px;
+} */
+
+nav {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 15px;
+}
+
+/* Main menu centered */
+.main-menu {
+  list-style: none;
+  display: flex;
+  
+  justify-content: center;
+  flex-grow: 1;
+  width:700px;
+  height:19.2px;
+  margin:-5.5px 0px 0px -80px; 
+  letter-spacing: 0.6px;
+  gap:29.5px;
+
+  margin-left: -72.9px;
+  margin-right: 7.5px;
+}
+
+
+.main-menu li a {
+  text-decoration: none;
+  color: var(--text-color);
+  /* font-weight: 500; */
+  transition: color 0.3s ease;
+  /* position: relative; */
+  /* margin-left: 10px; */
+}
+
+.main-menu li a:hover,
+.main-menu li a.active {
+  color: red;
+}
+
+/* Hover color override */
+.main-menu li a:hover {
+  color: red;
+}
+
+/* Social menu aligned right */
+.social-menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: 14px;
+  
+ 
+}
+
+
+.social-menu li i {
+  color: var(--text-color);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-size: 18px;
+}
+
+.social-menu li i:hover {
+  color: var(--primary-color);
+}
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+   <section class="headersection">
+  <header>
+     <div class="logo">
+    <i class="bi bi-lightning-charge-fill"></i>
+    Core<span>Edge</span>
+  </div>
+  
+    <nav>
+      <ul class="main-menu">
+        <li><a href="index.html" >Home</a></li>
+        <li><a href="about.html" >About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="login.html">Login</a></li>
+  
+        <li><a href="jobportal.html" class="active">Job Portal</a></li>
+      </ul>
+      <ul class="social-menu">
+        <li><a href="https://x.com/"><i class="fas fa-times"></a></i></li>
+        <li><a href="https://www.facebook.com/"><i class="fab fa-facebook"></a></i></li>
+        <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></a></i></li>
+        <li><a href="https://www.linkedin.com/"><i class="fab fa-linkedin"></a></i></li>
+      </ul>
+    </nav>
+  </header>
+  </section>
+  <section class="hero">
+    <div class="hero-left">
+      <img src="assets\img\job.jpg" alt="Person smiling while working"/>
+      <div class="job-badge">💼 45,000+<br/><span>Open Job Positions</span></div>
+      <div class="review-card">
+        <div class="avatars">
+          <img src="https://i.pravatar.cc/30?img=1" />
+          <img src="https://i.pravatar.cc/30?img=2" />
+          <img src="https://i.pravatar.cc/30?img=3" />
+        </div>
+        <div>
+          <strong>1,234+</strong><br />
+          <span>4.98 Star Reviews</span>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <h1><span>Find the Job</span> You've<br/>Been Dreaming Of!</h1>
+      <p>
+        Browse our job listings to find opportunities just for you.
+        Start your journey today and make your dream job a reality!
+      </p>
+      <p class="subheadline">EXPLORE OVER 1.3 MILLION JOB VACANCIES WAITING FOR YOU!</p>
+      <div class="search-bar">
+        <input type="text" placeholder="Job title" />
+        <select>
+          <option>Remote</option>
+          <option>On-site</option>
+          <option>Hybrid</option>
+        </select>
+        <button>SEARCH A JOB ➤</button>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <h2>Open Positions</h2>
+    <div class="jobs">
+      <div class="job-card" style="--i:1">
+        <div class="job-card-header">
+          <img src="https://i.pravatar.cc/50?img=10" alt="EasyFolio Logo"/>
+          <h3>Full Stack Developer</h3>
+        </div>
+        <div class="job-card-details">
+          <span><i class="fas fa-building"></i> EasyFolio</span>
+          <span><i class="fas fa-map-marker-alt"></i> Remote</span>
+          <span><i class="fas fa-dollar-sign"></i> $110k - $150k/year</span>
+          <span><i class="fas fa-briefcase"></i> Full-time, Remote</span>
+        </div>
+        <div class="job-card-content">
+          <p>Develop and maintain scalable web applications using React, Node.js, and MongoDB. Collaborate with cross-functional teams to deliver seamless digital experiences.</p>
+          <div class="buttons">
+            <a href="application.html"><button>Apply Now</button></a>
+            <a href="job-description.html" class="know-more">Know More</a>
+          </div>
+        </div>
+      </div>
+      <div class="job-card" style="--i:2">
+        <div class="job-card-header">
+          <img src="https://i.pravatar.cc/50?img=11" alt="EasyFolio Logo"/>
+          <h3>Product Manager</h3>
+        </div>
+        <div class="job-card-details">
+          <span><i class="fas fa-building"></i> EasyFolio</span>
+          <span><i class="fas fa-map-marker-alt"></i> San Francisco, CA</span>
+          <span><i class="fas fa-dollar-sign"></i> $130k - $170k/year</span>
+          <span><i class="fas fa-briefcase"></i> Full-time, Hybrid</span>
+        </div>
+        <div class="job-card-content">
+          <p>Develop and maintain scalable web applications using React, Node.js, and MongoDB. Collaborate with cross-functional teams to deliver seamless digital experiences.</p>
+          <div class="buttons">
+            <a href="application.html"><button>Apply Now</button></a>
+            <a href="job-description.html" class="know-more">Know More</a>
+          </div>
+        </div>
+      </div>
+      <div class="job-card" style="--i:3">
+        <div class="job-card-header">
+          <img src="https://i.pravatar.cc/50?img=12" alt="EasyFolio Logo"/>
+          <h3>Graphic Designer</h3>
+        </div>
+        <div class="job-card-details">
+          <span><i class="fas fa-building"></i> EasyFolio</span>
+          <span><i class="fas fa-map-marker-alt"></i> New York, NY</span>
+          <span><i class="fas fa-dollar-sign"></i> $80k - $120k/year</span>
+          <span><i class="fas fa-briefcase"></i> Full-time, On-site</span>
+        </div>
+        <div class="job-card-content">
+          <p>Create visually stunning graphics and branding materials using Adobe Creative Suite. Collaborate with marketing to elevate EasyFolio's visual identity.</p>
+          <div class="buttons">
+           <a href="application.html"><button>Apply Now</button></a>
+            <a href="job-description.html" class="know-more">Know More</a>
+          </div>
+        </div>
+      </div>
+      <div class="job-card" style="--i:4">
+        <div class="job-card-header">
+          <img src="https://i.pravatar.cc/50?img=13" alt="EasyFolio Logo"/>
+          <h3>DevOps Engineer</h3>
+        </div>
+        <div class="job-card-details">
+          <span><i class="fas fa-building"></i> EasyFolio</span>
+          <span><i class="fas fa-map-marker-alt"></i> Remote</span>
+          <span><i class="fas fa-dollar-sign"></i> $120k - $160k/year</span>
+          <span><i class="fas fa-briefcase"></i> Full-time, Remote</span>
+        </div>
+        <div class="job-card-content">
+          <p>Design and manage CI/CD pipelines and cloud infrastructure using AWS, Docker, and Kubernetes to ensure scalable and reliable deployments.</p>
+          <div class="buttons">
+            <a href="application.html"><button>Apply Now</button></a>
+            <a href="job-description.html" class="know-more">Know More</a>
+          </div>
+        </div>
+      </div>
+      <div class="job-card" style="--i:5">
+        <div class="job-card-header">
+          <img src="https://i.pravatar.cc/50?img=14" alt="EasyFolio Logo"/>
+          <h3>Content Strategist</h3>
+        </div>
+        <div class="job-card-details">
+          <span><i class="fas fa-building"></i> EasyFolio</span>
+          <span><i class="fas fa-map-marker-alt"></i> Chicago, IL</span>
+          <span><i class="fas fa-dollar-sign"></i> $90k - $130k/year</span>
+          <span><i class="fas fa-briefcase"></i> Full-time, Hybrid</span>
+        </div>
+        <div class="job-card-content">
+          <p>Develop and execute content strategies to enhance brand visibility, including SEO, blog content, and social media campaigns.</p>
+          <div class="buttons">
+            <a href="application.html"><button>Apply Now</button></a>
+            <a href="job-description.html" class="know-more">Know More</a>
+          </div>
+        </div>
+      </div>
+      <div class="job-card" style="--i:6">
+        <div class="job-card-header">
+          <img src="https://i.pravatar.cc/50?img=15" alt="EasyFolio Logo"/>
+          <h3>Mobile App Developer</h3>
+        </div>
+        <div class="job-card-details">
+          <span><i class="fas fa-building"></i> EasyFolio</span>
+          <span><i class="fas fa-map-marker-alt"></i> Austin, TX</span>
+          <span><i class="fas fa-dollar-sign"></i> $100k - $140k/year</span>
+          <span><i class="fas fa-briefcase"></i> Full-time, On-site</span>
+        </div>
+        <div class="job-card-content">
+          <p>Build and maintain high-quality iOS and Android applications using Swift, Kotlin, and React Native for seamless user experiences.</p>
+          <div class="buttons">
+            <a href="application.html"><button>Apply Now</button></a>
+            <a href="job-description.html" class="know-more">Know More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-logo-section">
+          <h3>EasyFolio</h3>
+          <p>Crafting exceptional digital experiences through design and development excellence.</p>
+        </div>
+        <div class="footer-links-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-social-section">
+          <h4>Follow Us</h4>
+          <div class="footer-social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 EasyFolio. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

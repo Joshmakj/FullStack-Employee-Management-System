@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - Job Applicants</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+   body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      transition: all 0.3s ease;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background-color: #c41c1c;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      transition: width 0.3s ease;
+    }
+
+    .sidebar h2 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar ul li {
+      padding: 15px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+
+    .sidebar ul li i {
+      font-size: 1.3rem;
+      width: 25px;
+      text-align: center;
+    }
+
+    .sidebar ul li:hover,
+    .sidebar ul li.active {
+      background-color: #a31414;
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    
+    header {
+      background-color: #c41c1c;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .toggle-btn {
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .page-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .content {
+      padding: 20px;
+    }
+    .filter-bar {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .filter-bar select, .filter-bar button {
+      padding: 8px;
+      font-size: 16px;
+    }
+    .applicant-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .applicant-table th, .applicant-table td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    .applicant-table th {
+      background-color: #c41c1c;
+      color: white;
+    }
+    .btn {
+      padding: 6px 12px;
+      border: none;
+      background-color: #c41c1c;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover {
+      background-color: #a31414;
+    }
+     
+   /* Sidebar collapse */
+    .sidebar-collapsed .sidebar {
+      width: 60px;
+      padding: 20px 10px;
+    }
+
+    .sidebar-collapsed .sidebar h2 {
+      display: none;
+    }
+
+    .sidebar-collapsed .sidebar ul li {
+      justify-content: center;
+      font-size: 0;
+    }
+
+    .sidebar-collapsed .sidebar ul li i {
+      width: auto;
+      font-size: 1.5rem;
+    }
+
+    .sidebar-collapsed .sidebar ul li span {
+      display: none;
+    }
+    a{
+      text-decoration: none;
+      color: inherit;
+    }
+    .menu-toggle {
+      font-size: 24px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .page-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Admin Panel</h2>
+      <ul>
+        <li ><i class="fas fa-tachometer-alt"></i><a href="admin-dashboard.html"><span>Dashboard</span></a></li>
+        <li><i class="fas fa-users"></i><a href="admin-manage-employees.html"><span>Manage Employees</span></a></li>
+        <li class="active"><i class="fas fa-money-check-alt"></i><a href="admin-salary.html"><span>Salary Management</span></a></li>
+        <li><i class="fas fa-calendar-check"></i><a href="admin-leave-employees.html"><span>Leave Management</span></a></li>
+        <li><i class="fas fa-id-card"></i><span><a href="admin-idcard.html"></a>Generate ID Card</span></a></li>
+        <li><i class="fas fa-briefcase"></i><a href="admin-add-jobpost.html"><span>Add Job Post</span></a></li>
+        <li><i class="fas fa-file-alt"></i><a href="admin-job-applicants.html"><span>Job Applications</span></a></li>
+        <li><i class="fas fa-sign-out-alt"></i><span>Logout</span></li>
+      </ul>
+    </aside>
+
+
+     <div class="main">
+      <header>
+        <div class="menu-toggle" id="toggleBtn">&#9776;</div>
+        <div class="page-title">Job Applications</div>
+      </header>
+
+      <div class="content">
+        <div class="filter-bar">
+          <label for="jobFilter">Filter by Job:</label>
+          <select id="jobFilter" onchange="filterApplicants()">
+            <option value="">All</option>
+            <option value="Software Engineer">Software Engineer</option>
+            <option value="HR Manager">HR Manager</option>
+            <option value="Marketing Executive">Marketing Executive</option>
+          </select>
+
+          <label for="deptFilter">Filter by Department:</label>
+          <select id="deptFilter" onchange="filterApplicants()">
+            <option value="">All</option>
+            <option value="Engineering">Engineering</option>
+            <option value="HR">HR</option>
+            <option value="Marketing">Marketing</option>
+          </select>
+
+          <button class="btn" onclick="toggleShortlisted()">Show Shortlisted Only</button>
+        </div>
+
+        <table class="applicant-table" id="applicantTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Job Applied</th>
+              <th>Department</th>
+              <th>Resume</th>
+              <th>Application</th>
+              <th>Shortlist</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-job="Software Engineer" data-department="Engineering" data-resume="JavaScript, React, Node">
+              <td>John Doe</td>
+              <td>john@example.com</td>
+              <td>Software Engineer</td>
+              <td>Engineering</td>
+              <td><a class="btn" href="view-resume.html?file=resumes/john_doe_resume.pdf" target="_blank">View Resume</a></td>
+              <td><a class="btn" href="view-application.html?name=John%20Doe&email=john@example.com&job=Software%20Engineer">View Application</a></td>
+              <td><button class="btn" onclick="shortlist(this)">Shortlist</button></td>
+            </tr>
+            <tr data-job="Marketing Executive" data-department="Marketing" data-resume="SEO, Campaigns, Analytics">
+              <td>Jane Smith</td>
+              <td>jane@example.com</td>
+              <td>Marketing Executive</td>
+              <td>Marketing</td>
+              <td><a class="btn" href="view-resume.html?file=resumes/jane_smith_resume.pdf" target="_blank">View Resume</a></td>
+              <td><a class="btn" href="view-application.html?name=Jane%20Smith&email=jane@example.com&job=Marketing%20Executive">View Application</a></td>
+              <td><button class="btn" onclick="shortlist(this)">Shortlist</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+     const toggleBtn = document.getElementById('toggleBtn');
+  const container = document.getElementById('mainContainer');
+  toggleBtn.addEventListener('click', () => {
+    container.classList.toggle('sidebar-collapsed');
+  });
+    let showShortlistedOnly = false;
+
+    function filterApplicants() {
+      const job = document.getElementById('jobFilter').value;
+      const dept = document.getElementById('deptFilter').value;
+      const rows = document.querySelectorAll('#applicantTable tbody tr');
+
+      rows.forEach(row => {
+        const rowJob = row.getAttribute('data-job');
+        const rowDept = row.getAttribute('data-department');
+        const isShortlisted = row.getAttribute('data-shortlisted') === 'true';
+
+        const matchJob = !job || rowJob === job;
+        const matchDept = !dept || rowDept === dept;
+        const matchShortlist = !showShortlistedOnly || isShortlisted;
+
+        row.style.display = (matchJob && matchDept && matchShortlist) ? '' : 'none';
+      });
+    }
+
+    function shortlist(button) {
+      const row = button.closest('tr');
+      const job = row.getAttribute('data-job').toLowerCase();
+      const resume = row.getAttribute('data-resume').toLowerCase();
+      const match = resume.includes(job.split(' ')[0]);
+
+      alert(match ? 'Applicant shortlisted based on keyword match.' : 'Applicant not matched closely with job keywords.');
+      if (match) {
+        row.setAttribute('data-shortlisted', 'true');
+        button.textContent = 'Shortlisted';
+        button.disabled = true;
+        filterApplicants();
+      }
+    }
+
+    function toggleShortlisted() {
+      showShortlistedOnly = !showShortlistedOnly;
+      document.querySelector('.filter-bar button').textContent = showShortlistedOnly ? 'Show All' : 'Show Shortlisted Only';
+      filterApplicants();
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('collapsed');
+    }
+  </script>
+</body>
+</html>

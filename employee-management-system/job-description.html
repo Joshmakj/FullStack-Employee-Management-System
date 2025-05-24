@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frontend Developer | Dream Job Finder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Root colors */
+    :root {
+      --primary: #d32f2f;
+      --primary-dark: #b71c1c;
+      --background: #fafafa;
+      --card-bg: #fff;
+      --text-primary: #222;
+      --text-secondary: #555;
+      --border-color: #e0e0e0;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 1.5rem 2rem;
+      box-shadow: 0 2px 8px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.75rem;
+      color: var(--primary);
+      letter-spacing: 1.1px;
+      user-select: none;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 3.5rem auto 4rem;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .back-btn {
+      align-self: flex-start;
+      background-color: transparent;
+      color: var(--primary);
+      font-weight: 600;
+      border: 2px solid var(--primary);
+      border-radius: 30px;
+      padding: 0.7rem 1.8rem;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(211, 47, 47, 0.15);
+    }
+
+    .back-btn:hover {
+      background-color: var(--primary);
+      color: white;
+      box-shadow: 0 6px 16px rgba(211, 47, 47, 0.3);
+    }
+
+    .job-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px var(--shadow);
+      padding: 3rem 3rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .job-title {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+    }
+
+    .job-location {
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.03em;
+    }
+
+    .job-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.4rem;
+      font-weight: 500;
+      color: var(--primary);
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .section {
+      margin-top: 2rem;
+    }
+
+    .section h3 {
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      border-left: 4px solid var(--primary);
+      padding-left: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+
+    .section p {
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    .section ul {
+      list-style: disc inside;
+      color: var(--text-secondary);
+      font-weight: 400;
+      line-height: 1.6;
+      padding-left: 1.2rem;
+    }
+
+    .section ul li {
+      margin-bottom: 0.7rem;
+    }
+
+    .apply-btn {
+      margin-top: 3rem;
+      align-self: flex-start;
+      background-color: var(--primary);
+      color: var(--card-bg);
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 1.1rem 3rem;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      box-shadow: 0 6px 18px rgba(211, 47, 47, 0.35);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+
+    .apply-btn:hover,
+    .apply-btn:focus {
+      background-color: var(--primary-dark);
+      box-shadow: 0 8px 22px rgba(183, 28, 28, 0.6);
+      outline: none;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding-bottom: 3rem;
+      user-select: none;
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding: 0 1rem;
+      }
+
+      .job-card {
+        padding: 2rem 1.5rem 2.5rem;
+      }
+
+      .job-title {
+        font-size: 1.8rem;
+      }
+
+      .apply-btn {
+        width: 100%;
+        padding: 1.2rem 0;
+        text-align: center;
+      }
+
+      .back-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<main>
+  <!-- Back Button -->
+  <a href="jobportal.html" class="back-btn" aria-label="Back to Job Portal"><i class="fas fa-arrow-left"></i> Back to Job Portal</a>
+
+  <!-- Job Card -->
+  <article class="job-card" role="main" aria-label="Frontend Developer Job Description">
+    <h1 class="job-title">Frontend Developer</h1>
+    <p class="job-location">Remote • Full-Time • Posted 2 days ago</p>
+
+    <div class="job-meta" aria-label="Job details">
+      <span>HTML</span>
+      <span>CSS</span>
+      <span>JavaScript</span>
+      <span>React</span>
+      <span>2+ Years Experience</span>
+    </div>
+
+    <section class="section">
+      <h3>About the Role</h3>
+      <p>
+        We are seeking a highly motivated Frontend Developer to build sleek, responsive user interfaces that create a seamless experience for our users. You will be a key player in driving our product's visual and interactive quality.
+      </p>
+    </section>
+
+    <section class="section">
+      <h3>Responsibilities</h3>
+      <ul>
+        <li>Develop new user-facing features with clean, maintainable code.</li>
+        <li>Ensure technical feasibility of UI/UX designs and optimize applications for maximum speed and scalability.</li>
+        <li>Collaborate with designers, backend engineers, and product managers.</li>
+        <li>Maintain code quality through rigorous testing and reviews.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3>Qualifications</h3>
+      <ul>
+        <li>Proficient in HTML5, CSS3, and modern JavaScript (ES6+).</li>
+        <li>Experience with React or similar frontend frameworks.</li>
+        <li>Strong understanding of responsive design and cross-browser compatibility.</li>
+        <li>Familiar with REST APIs, Git version control, and Agile methodologies.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3>Why Work With Us</h3>
+      <ul>
+        <li>Flexible remote work environment.</li>
+        <li>Supportive team culture focused on innovation.</li>
+        <li>Professional growth opportunities with real impact.</li>
+        <li>Competitive salary and benefits.</li>
+      </ul>
+    </section>
+
+    <a href="application.html" class="apply-btn" role="button" aria-label="Apply now for Frontend Developer position">Apply Now</a>
+  </article>
+</main>
+
+
+
+</body>
+</html>

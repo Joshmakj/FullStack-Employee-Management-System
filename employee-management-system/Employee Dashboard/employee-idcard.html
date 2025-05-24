@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Employee ID Card - Dashboard</title>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+    }
+
+    .container {
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background: #c41c1c;
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar.closed {
+      transform: translateX(-250px);
+    }
+    .sidebar h2 {
+      background: #b01616;
+      padding: 20px;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    .sidebar ul {
+      list-style: none;
+      flex-grow: 1;
+    }
+    .sidebar ul li {
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.3s;
+    }
+    .sidebar ul li i {
+      margin-right: 12px;
+      font-size: 1.3rem;
+    }
+    .sidebar ul li:hover,
+    .sidebar ul li.active {
+      background: #9c1313;
+    }
+
+    /* Main Content */
+    .main {
+      margin-left: 250px;
+      width: calc(100% - 250px);
+      min-height: 100vh;
+      transition: margin-left 0.3s ease, width 0.3s ease;
+    }
+    .main.full {
+      margin-left: 0;
+      width: 100%;
+    }
+
+    header {
+      background: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .menu-toggle {
+      font-size: 28px;
+      color: #c41c1c;
+      cursor: pointer;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      color: #444;
+    }
+    .user-info img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+
+    /* ID Card Styling */
+    .id-section {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin: 40px 20px;
+    }
+    .id-card {
+      width: 320px;
+      height: 520px;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      border: 2px solid #e5e5e5;
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .top-design {
+      width: 100%;
+      height: 80px;
+      background: #d50000;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      position: relative;
+    }
+    .logo {
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: 2px;
+      font-family: 'Segoe UI Black', sans-serif;
+      user-select: none;
+    }
+
+    .photo-container {
+      width: 150px;
+      height: 200px;
+      border: 4px solid #d50000;
+      border-radius: 15px;
+      margin: -60px auto 20px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .photo {
+      width: 140px;
+      height: 190px;
+      border-radius: 12px;
+      background: url('https://randomuser.me/api/portraits/men/44.jpg') no-repeat center/cover;
+    }
+
+    .info {
+      flex-grow: 1;
+      padding: 0 25px 25px 25px;
+      text-align: center;
+    }
+    .info h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #d50000;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+    .info p {
+      margin: 6px 0;
+    }
+
+    .barcode {
+      text-align: center;
+      font-size: 22px;
+      letter-spacing: 6px;
+      color: #d50000;
+      margin-bottom: 15px;
+    }
+
+    .terms {
+      background: #fafafa;
+      border-top: 1px solid #e5e5e5;
+      padding: 15px 25px;
+      font-size: 12px;
+      color: #666;
+      text-align: left;
+      flex-grow: 1;
+    }
+    .terms h3 {
+      font-weight: 700;
+      color: #d50000;
+      margin-bottom: 8px;
+    }
+    .terms ul {
+      list-style-type: disc;
+      padding-left: 18px;
+      line-height: 1.3;
+    }
+
+    .contact {
+      background: #f9f9f9;
+      padding: 15px 25px 25px;
+      border-top: 1px solid #e5e5e5;
+      text-align: center;
+      font-size: 13px;
+    }
+    .contact h4 {
+      color: #d50000;
+      margin-bottom: 8px;
+    }
+    .contact p {
+      margin: 4px 0;
+    }
+    .qr {
+      width: 90px;
+      height: 90px;
+      margin: 15px auto 0;
+      border: 3px solid #d50000;
+      border-radius: 12px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #999;
+    }
+
+    .download-btn {
+      background: #d50000;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+      margin-right: 10px;
+    }
+    .download-btn:hover {
+      background: #b20000;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-250px); }
+      .sidebar.closed { transform: translateX(0); }
+      .main { margin-left: 0; width: 100%; }
+      .id-section { flex-direction: column; align-items: center; }
+    }
+    a{
+      list-style-type: none;
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Sidebar -->
+      <!-- Sidebar -->
+      <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Employee Panel</h2>
+      <ul>
+        <li class="active"><a href="employee-dashboard.html"><i class="fas fa-tachometer-alt"></i> My Dashboard </a></li>
+        <li><a href="employee-profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+        <li><a href="employee-leave.html"><i class="fas fa-calendar-check"></i> Leave Requests</a></li>
+        <li><a href="employee-notification.html"><i class="fas fa-bell"></i> Notifications</a></li>
+        <li><a href="employee-salary.html"><i class="fas fa-money-check-alt"></i> Salary</a></li>
+        <li><a href="employee-idcard.html"><i class="fas fa-id-badge"></i> ID Card</a></li> <!-- New ID Card Option -->
+        <li><i class="fas fa-sign-out-alt"></i> Logout</li>
+      </ul>
+    </aside>
+    <!-- Main Content -->
+    <main class="main" id="main">
+      <header>
+        <div id="menu-toggle" class="menu-toggle"><i class="fas fa-bars"></i></div>
+        <div class="user-info">
+          <button class="download-btn" id="downloadBtn"><i class="fa fa-download"></i> Download ID</button>
+          <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="User" />
+          John Doe
+        </div>
+      </header>
+
+      <section class="id-section" id="idCardSection">
+        <!-- Front Side -->
+        <div class="id-card">
+          <div class="top-design">
+            <div class="logo">LOGO</div>
+          </div>
+          <div class="photo-container">
+            <div class="photo"></div>
+          </div>
+          <div class="info">
+            <h2>John Doe</h2>
+            <p><strong>Position:</strong> Software Engineer</p>
+            <p><strong>ID:</strong> EMP123456</p>
+            <p><strong>Email:</strong> john.doe@example.com</p>
+            <p><strong>Phone:</strong> +123 456 7890</p>
+          </div>
+          <div class="barcode">|| ||| || |||| ||</div>
+        </div>
+
+        <!-- Back Side -->
+        <div class="id-card">
+          <div class="top-design">
+            <div class="logo">LOGO</div>
+          </div>
+          <div class="terms">
+            <h3>Terms and Conditions:</h3>
+            <ul>
+              <li>This ID card is the property of the company.</li>
+              <li>If found, return it to the HR department.</li>
+              <li>Do not fold, bend, or damage this card.</li>
+            </ul>
+          </div>
+          <div class="contact">
+            <h4>Contact Us</h4>
+            <p>Email: hr@company.com</p>
+            <p>Phone: +123 456 7890</p>
+            <div class="qr">QR CODE</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const main = document.getElementById('main');
+    const toggle = document.getElementById('menu-toggle');
+
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('closed');
+      main.classList.toggle('full');
+    });
+
+    // Download ID card as image
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      const idCardSection = document.getElementById('idCardSection');
+      html2canvas(idCardSection).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'employee_id_card.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    });
+  </script>
+</body>
+</html>

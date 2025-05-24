@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Employee Salary Details</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #c41c1c;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      padding: 15px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      user-select: none;
+    }
+    .sidebar ul li:hover,
+    .sidebar ul li.active {
+      background-color: #a31414;
+    }
+    .sidebar ul li i {
+      font-size: 1.3rem;
+      width: 25px;
+    }
+    .sidebar ul li a {
+      color: white;
+      text-decoration: none;
+    }
+    .main {
+      flex: 1;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #c41c1c;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .content {
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .employee-info {
+      margin-bottom: 20px;
+    }
+    .employee-info h3 {
+      margin-bottom: 10px;
+      color: #c41c1c;
+    }
+    .info-row {
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    #salaryChartContainer {
+      max-width: 700px;
+      margin: 30px 0;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .control-group {
+      flex: 1 1 250px;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .control-group h4 {
+      color: #c41c1c;
+    }
+    .control-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .control-group input {
+      width: 100%;
+      padding: 7px 10px;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .control-group button {
+      width: 100%;
+      background-color: #c41c1c;
+      color: white;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .control-group button:hover {
+      background-color: #a31414;
+    }
+    #downloadEmpSalary, #btnViewPayslip {
+      margin-top: 25px;
+      background-color: #007bff;
+    }
+    #downloadEmpSalary:hover, #btnViewPayslip:hover {
+      background-color: #0056b3;
+    }
+
+    .payslip-container {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+      display: none;
+    }
+    .payslip-container h3 {
+      color: #c41c1c;
+      margin-bottom: 15px;
+    }
+    .payslip-row {
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="mainContainer">
+    <aside class="sidebar">
+      <h2>Admin Panel</h2>
+      <ul>
+        <li><i class="fas fa-tachometer-alt"></i><a href="admin-dashboard.html">Dashboard</a></li>
+        <li><i class="fas fa-users"></i><a href="admin-manage-employees.html">Manage Employees</a></li>
+        <li class="active"><i class="fas fa-money-check-alt"></i><a href="admin-salary.html">Salary Management</a></li>
+        <li><i class="fas fa-calendar-check"></i><a href="admin-leave-employees.html">Leave Management</a></li>
+        <li><i class="fas fa-id-card"></i><a href="admin-idcard.html">Generate ID Card</a></li>
+        <li><i class="fas fa-briefcase"></i><a href="admin-add-jobpost.html">Add Job Post</a></li>
+        <li><i class="fas fa-file-alt"></i><a href="admin-job-applicants.html">Job Applications</a></li>
+        <li><i class="fas fa-sign-out-alt"></i>Logout</li>
+      </ul>
+    </aside>
+
+    <div class="main">
+      <header>
+        <div class="page-title">Employee Salary Details</div>
+      </header>
+      <div class="content">
+        <div class="employee-info" id="employeeInfo"></div>
+        <div id="salaryChartContainer">
+          <canvas id="salaryChart"></canvas>
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <h4>Increase Salary</h4>
+            <label for="increaseAmount">Amount ($):</label>
+            <input type="number" id="increaseAmount" min="1" />
+            <button id="btnIncrease">Add Increase</button>
+          </div>
+          <div class="control-group">
+            <h4>Add Bonus</h4>
+            <label for="bonusAmount">Amount ($):</label>
+            <input type="number" id="bonusAmount" min="1" />
+            <button id="btnBonus">Add Bonus</button>
+          </div>
+          <div class="control-group">
+            <h4>Deduct Salary</h4>
+            <label for="deductAmount">Amount ($):</label>
+            <input type="number" id="deductAmount" min="1" />
+            <button id="btnDeduct">Add Deduction</button>
+          </div>
+          <div class="control-group" style="flex: 1 1 100%;">
+            <h4>Mark Salary Paid</h4>
+            <button id="btnMarkPaid">Mark as Paid</button>
+          </div>
+        </div>
+        <button id="btnViewPayslip">View Payslip</button>
+        <button id="downloadEmpSalary">Download Employee Salary Data</button>
+
+        <div class="payslip-container" id="payslipContainer"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const empId = urlParams.get('empId');
+
+  const employees = {
+    'E101': {
+      id: 'E101',
+      name: 'John Doe',
+      department: 'Engineering',
+      monthlyData: [
+        {month: 'Jan', base: 5000, hike: 200, bonus: 300, deduction: 50, status: 'Paid'},
+        {month: 'Feb', base: 5200, hike: 0, bonus: 100, deduction: 30, status: 'Paid'},
+        {month: 'Mar', base: 5300, hike: 100, bonus: 0, deduction: 20, status: 'Pending'},
+      ],
+    },
+    'E102': {
+      id: 'E102',
+      name: 'Jane Smith',
+      department: 'HR',
+      monthlyData: [
+        {month: 'Jan', base: 4500, hike: 100, bonus: 200, deduction: 40, status: 'Paid'},
+        {month: 'Feb', base: 4600, hike: 0, bonus: 0, deduction: 20, status: 'Pending'},
+      ],
+    },
+  };
+
+  if (!empId || !employees[empId]) {
+    alert('Invalid or missing Employee ID.');
+    window.location.href = 'admin-salary.html';
+  }
+
+  const empData = employees[empId];
+  const employeeInfoDiv = document.getElementById('employeeInfo');
+  const salaryChartCtx = document.getElementById('salaryChart').getContext('2d');
+  const payslipContainer = document.getElementById('payslipContainer');
+  let salaryChart;
+
+  function displayEmployeeInfo() {
+    const last = empData.monthlyData.at(-1);
+    employeeInfoDiv.innerHTML = `
+      <h3>${empData.name} (${empData.id})</h3>
+      <div class="info-row"><strong>Department:</strong> ${empData.department}</div>
+      <div class="info-row"><strong>Current Base Salary:</strong> $${last.base.toFixed(2)}</div>
+      <div class="info-row"><strong>Last Salary Status:</strong> ${last.status}</div>
+    `;
+  }
+
+  function drawChart() {
+    const months = empData.monthlyData.map(d => d.month);
+    const base = empData.monthlyData.map(d => d.base);
+    const hike = empData.monthlyData.map(d => d.hike);
+    const bonus = empData.monthlyData.map(d => d.bonus);
+    const deduction = empData.monthlyData.map(d => d.deduction);
+
+    if (salaryChart) salaryChart.destroy();
+
+    salaryChart = new Chart(salaryChartCtx, {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [
+          {label: 'Base Salary', data: base, backgroundColor: '#c41c1c'},
+          {label: 'Hike', data: hike, backgroundColor: '#e57373'},
+          {label: 'Bonus', data: bonus, backgroundColor: '#81c784'},
+          {label: 'Deduction', data: deduction, backgroundColor: '#f44336'}
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Monthly Salary Breakdown'
+          }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  }
+
+  function updateAndRedraw() {
+    displayEmployeeInfo();
+    drawChart();
+  }
+
+  document.getElementById('btnIncrease').addEventListener('click', () => {
+    const val = parseFloat(document.getElementById('increaseAmount').value);
+    if (isNaN(val) || val <= 0) return alert('Enter valid amount');
+    const last = empData.monthlyData.at(-1);
+    last.hike += val;
+    last.base += val;
+    updateAndRedraw();
+  });
+
+  document.getElementById('btnBonus').addEventListener('click', () => {
+    const val = parseFloat(document.getElementById('bonusAmount').value);
+    if (isNaN(val) || val <= 0) return alert('Enter valid amount');
+    empData.monthlyData.at(-1).bonus += val;
+    updateAndRedraw();
+  });
+
+  document.getElementById('btnDeduct').addEventListener('click', () => {
+    const val = parseFloat(document.getElementById('deductAmount').value);
+    if (isNaN(val) || val <= 0) return alert('Enter valid amount');
+    empData.monthlyData.at(-1).deduction += val;
+    updateAndRedraw();
+  });
+
+  document.getElementById('btnMarkPaid').addEventListener('click', () => {
+    empData.monthlyData.at(-1).status = 'Paid';
+    updateAndRedraw();
+  });
+
+  document.getElementById('downloadEmpSalary').addEventListener('click', () => {
+    let csv = 'Month,Base,Hike,Bonus,Deduction,Status\n';
+    empData.monthlyData.forEach(d => {
+      csv += `${d.month},${d.base},${d.hike},${d.bonus},${d.deduction},${d.status}\n`;
+    });
+    const blob = new Blob([csv], {type: 'text/csv'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${empData.id}_salary_data.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+
+  document.getElementById('btnViewPayslip').addEventListener('click', () => {
+    const d = empData.monthlyData.at(-1);
+    payslipContainer.innerHTML = `
+      <h3>Payslip - ${d.month}</h3>
+      <div class="payslip-row">Employee Name: ${empData.name}</div>
+      <div class="payslip-row">Employee ID: ${empData.id}</div>
+      <div class="payslip-row">Department: ${empData.department}</div>
+      <div class="payslip-row">Base Salary: $${d.base}</div>
+      <div class="payslip-row">Hike: $${d.hike}</div>
+      <div class="payslip-row">Bonus: $${d.bonus}</div>
+      <div class="payslip-row">Deduction: $${d.deduction}</div>
+      <div class="payslip-row"><strong>Total: $${(d.base + d.bonus - d.deduction).toFixed(2)}</strong></div>
+      <div class="payslip-row">Status: ${d.status}</div>
+    `;
+    payslipContainer.style.display = payslipContainer.style.display === 'none' ? 'block' : 'none';
+  });
+
+  updateAndRedraw();
+</script>
+</body>
+</html>

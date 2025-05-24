@@ -1,0 +1,313 @@
+<!-- FULL UPDATED HTML CODE -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Profile - Employee Dashboard</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f8;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    .container { display: flex; min-height: 100vh; transition: all 0.3s ease; }
+
+    .sidebar {
+      width: 250px;
+      background: #c41c1c;
+      color: white;
+      position: fixed;
+      top: 0; left: 0; height: 100vh;
+      z-index: 1000;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-collapsed .sidebar { transform: translateX(-100%); }
+
+    .sidebar h2 {
+      background: #b01616;
+      padding: 20px;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .sidebar ul { list-style: none; padding-bottom: 30px; }
+
+    .sidebar ul li {
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.3s;
+    }
+
+    .sidebar ul li i {
+      margin-right: 12px;
+      font-size: 1.3rem;
+      width: 25px;
+      text-align: center;
+    }
+
+    .sidebar ul li:hover, .sidebar ul li.active {
+      background: #9c1313;
+    }
+
+    .main {
+      margin-left: 250px;
+      width: calc(100% - 250px);
+      transition: all 0.3s ease;
+    }
+     .sidebar-collapsed .main {
+      margin-left: 0;
+      width: 100%;
+    }
+    header {
+      background: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .menu-toggle {
+      font-size: 28px;
+      color: #c41c1c;
+      cursor: pointer;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      color: #444;
+    }
+
+    .user-info img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+
+    .content {
+      padding: 40px 30px;
+      background: white;
+      border-radius: 12px;
+      margin: 40px auto;
+      max-width: 1400px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      color: #c41c1c;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .profile-photo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .profile-photo img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid #c41c1c;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .profile-field {
+      background: #fff;
+      padding: 18px 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      border-left: 5px solid #c41c1c;
+      position: relative;
+    }
+
+    .profile-field label {
+      display: block;
+      font-weight: 600;
+      color: #c41c1c;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .profile-field span {
+      display: block;
+      font-size: 1.05rem;
+      color: #333;
+    }
+
+    .edit-icon {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      color: #999;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .edit-icon:hover { color: #c41c1c; }
+
+    [contenteditable="true"] {
+      background: #fff7f7;
+      border-bottom: 1px dashed #c41c1c;
+      outline: none;
+    }
+
+    a {
+      list-style-type: none;
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="mainContainer">
+        <aside class="sidebar">
+      <h2>Employee Panel</h2>
+      <ul>
+        <li class="active"><a href="employee-dashboard.html"><i class="fas fa-tachometer-alt"></i> My Dashboard </a></li>
+        <li><a href="employee-profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+        <li><a href="employee-leave.html"><i class="fas fa-calendar-check"></i> Leave Requests</a></li>
+        <li><a href="employee-notification.html"><i class="fas fa-bell"></i> Notifications</a></li>
+        <li><a href="employee-salary.html"><i class="fas fa-money-check-alt"></i> Salary</a></li>
+        <li><a href="employee-idcard.html"><i class="fas fa-id-badge"></i> ID Card</a></li>
+        <li><a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </aside>
+
+    <div class="main">
+      <header>
+        <div class="menu-toggle" id="toggleBtn">&#9776;</div>
+        <div class="user-info">
+          <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="User" />
+          <span>John Doe</span>
+        </div>
+      </header>
+
+      <div class="content">
+        <!-- Updated heading to show actual name -->
+        <h1>John Doe</h1>
+        <div class="profile-photo">
+          <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Profile Photo" />
+        </div>
+
+        <div class="profile-grid">
+          <!-- Profile fields with edit icons -->
+          <div class="profile-field">
+            <label>Full Name</label>
+            <span contenteditable="false">John Doe</span>
+            <i class="fas fa-pen edit-icon"></i>
+          </div>
+          <div class="profile-field">
+            <label>Email</label>
+            <span contenteditable="false">john.doe@example.com</span>
+            <i class="fas fa-pen edit-icon"></i>
+          </div>
+          <div class="profile-field">
+            <label>Phone</label>
+            <span contenteditable="false">+1 234 567 8901</span>
+            <i class="fas fa-pen edit-icon"></i>
+          </div>
+          <div class="profile-field">
+            <label>Emergency Contact</label>
+            <span contenteditable="false">+1 987 654 3210</span>
+            <i class="fas fa-pen edit-icon"></i>
+          </div>
+          <div class="profile-field">
+            <label>Address</label>
+            <span contenteditable="false">123 Main St, New York, NY</span>
+            <i class="fas fa-pen edit-icon"></i>
+          </div>
+          <div class="profile-field">
+            <label>Location</label>
+            <span contenteditable="false">New York, USA</span>
+            <i class="fas fa-pen edit-icon"></i>
+          </div>
+
+          <!-- Static fields -->
+          <div class="profile-field"><label>Date of Birth</label><span>March 10, 1985</span></div>
+          <div class="profile-field"><label>Gender</label><span>Male</span></div>
+          <div class="profile-field"><label>Marital Status</label><span>Married</span></div>
+          <div class="profile-field"><label>Department</label><span>Human Resources</span></div>
+          <div class="profile-field"><label>Designation</label><span>HR Manager</span></div>
+          <div class="profile-field"><label>Joining Date</label><span>Jan 15, 2021</span></div>
+          <div class="profile-field"><label>Employee ID</label><span>EMP123456</span></div>
+          <div class="profile-field"><label>Nationality</label><span>American</span></div>
+          <div class="profile-field"><label>Blood Group</label><span>O+</span></div>
+          <div class="profile-field"><label>PAN Number</label><span>ABCDE1234F</span></div>
+          <div class="profile-field"><label>Aadhaar Number</label><span>1234 5678 9012</span></div>
+
+          <!-- Bank details -->
+          <div class="profile-field">
+            <label>Bank Name</label>
+            <span contenteditable="false">ABC Bank</span>
+            <i class="fas fa-pen edit-icon"></i>
+          </div>
+          <div class="profile-field">
+            <label>Bank Account No.</label>
+            <span contenteditable="false">0123456789</span>
+            <i class="fas fa-pen edit-icon"></i>
+          </div>
+          <div class="profile-field">
+            <label>IFSC Code</label>
+            <span contenteditable="false">ABC0123456</span>
+            <i class="fas fa-pen edit-icon"></i>
+          </div>
+
+          <div class="profile-field"><label>Manager</label><span>Linda Smith</span></div>
+          <div class="profile-field"><label>Working Mode</label><span>Hybrid</span></div>
+          <div class="profile-field"><label>Employment Type</label><span>Full-Time</span></div>
+          <div class="profile-field"><label>Shift Timing</label><span>9 AM - 6 PM</span></div>
+          <div class="profile-field"><label>Work Email</label><span>j.doe@company.com</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const toggleBtn = document.getElementById('toggleBtn');
+    const container = document.getElementById('mainContainer');
+
+    toggleBtn.addEventListener('click', () => {
+      container.classList.toggle('sidebar-collapsed');
+    });
+
+    document.querySelectorAll('.edit-icon').forEach(icon => {
+      icon.addEventListener('click', () => {
+        const span = icon.previousElementSibling;
+        span.contentEditable = true;
+        span.focus();
+        span.addEventListener('blur', () => {
+          span.contentEditable = false;
+        }, { once: true });
+      });
+    });
+  </script>
+</body>
+</html>

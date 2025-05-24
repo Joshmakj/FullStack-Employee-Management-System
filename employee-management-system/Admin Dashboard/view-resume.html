@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View Resume</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #c41c1c;
+      color: white;
+      padding: 15px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .resume-container {
+      padding: 20px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 90vh;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      padding: 50px;
+    }
+  </style>
+</head>
+<body>
+  <header>Resume Viewer</header>
+  <div class="resume-container">
+    <div id="resumeArea"></div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get('file');
+    const resumeArea = document.getElementById('resumeArea');
+
+    if (file) {
+      const iframe = document.createElement('iframe');
+      iframe.src = decodeURIComponent(file);
+      iframe.title = "Resume Viewer";
+      resumeArea.appendChild(iframe);
+    } else {
+      resumeArea.innerHTML = "<div class='error'>⚠️ No resume file specified.</div>";
+    }
+  </script>
+</body>
+</html>

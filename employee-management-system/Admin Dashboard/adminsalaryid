@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Employee Salary Details</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #c41c1c;
+      --primary-dark: #a31414;
+      --bg-light: #f4f4f4;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-light);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 15px 25px;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .container {
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 40px;
+      border-radius: 10px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .info-group {
+      margin-bottom: 15px;
+    }
+
+    .info-group label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .info-group span {
+      display: block;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .btn-download {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: background 0.3s ease;
+    }
+
+    .btn-download:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span>Employee Salary Details</span>
+    <button class="back-btn" onclick="window.history.back()">← Back</button>
+  </header>
+
+  <div class="container" id="salaryDetailContainer">
+    <!-- Details will be inserted by JS -->
+  </div>
+
+  <script>
+    const employeeData = [
+      { id: 'E101', name: 'John Doe', department: 'Engineering', baseSalary: 5000, status: 'Paid' },
+      { id: 'E102', name: 'Jane Smith', department: 'HR', baseSalary: 4500, status: 'Pending' },
+      { id: 'E103', name: 'Alice Johnson', department: 'Marketing', baseSalary: 4000, status: 'Paid' },
+      { id: 'E104', name: 'Bob Brown', department: 'Sales', baseSalary: 4200, status: 'Pending' },
+      { id: 'E105', name: 'Mary Davis', department: 'Engineering', baseSalary: 5300, status: 'Paid' },
+    ];
+
+    function getEmpIdFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('empId');
+    }
+
+    function renderDetails(empId) {
+      const emp = employeeData.find(e => e.id === empId);
+      const container = document.getElementById('salaryDetailContainer');
+
+      if (!emp) {
+        container.innerHTML = `<p style="text-align:center; color: red;">Employee not found.</p>`;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="section-title">Basic Information</div>
+        <div class="info-group"><label>Employee ID:</label><span>${emp.id}</span></div>
+        <div class="info-group"><label>Name:</label><span>${emp.name}</span></div>
+        <div class="info-group"><label>Department:</label><span>${emp.department}</span></div>
+        <div class="info-group"><label>Status:</label><span>${emp.status}</span></div>
+
+        <div class="section-title">Salary Details</div>
+        <div class="info-group"><label>Base Salary:</label><span>$${emp.baseSalary.toFixed(2)}</span></div>
+
+        <a href="#" class="btn-download" onclick="downloadPayslip('${emp.id}', '${emp.name}', '${emp.department}', ${emp.baseSalary}, '${emp.status}')">
+          Download Payslip
+        </a>
+      `;
+    }
+
+    function downloadPayslip(id, name, dept, salary, status) {
+      const csvContent = [
+        ['Employee ID', 'Name', 'Department', 'Base Salary', 'Status'],
+        [id, name, dept, `$${salary.toFixed(2)}`, status]
+      ].map(row => row.join(',')).join('\n');
+
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Payslip_${id}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    const empId = getEmpIdFromURL();
+    renderDetails(empId);
+  </script>
+</body>
+</html>
