@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+
+    .dashboard-container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #ffe5e5;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+      overflow: hidden;
+      border: 2px solid #ff0000;
+    }
+
+    .dashboard-header {
+      background: #ff0000;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      position: relative;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #fff;
+      color: #ff0000;
+      padding: 4px 10px;
+      font-size: 13px;
+      border: 1px solid #ff0000;
+      border-radius: 3px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+      text-decoration: none;
+    }
+
+    .back-button:hover {
+      background: #ffcccc;
+    }
+
+    .tab-buttons {
+      display: flex;
+      border-bottom: 2px solid #ffcccc;
+      background: #ffe5e5;
+    }
+
+    .tab-buttons button {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #a60000;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .tab-buttons button:hover {
+      background: #ffd6d6;
+    }
+
+    .tab-buttons button.active {
+      background: #fff;
+      border-bottom: 3px solid #ff0000;
+      color: #ff0000;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .job-card {
+      background: #fff;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-left: 5px solid #ff0000;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(255, 0, 0, 0.1);
+    }
+
+    .job-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #a60000;
+    }
+
+    .job-details {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <a href="userindex.html" class="back-button">← Back</a>
+      User Dashboard
+    </div>
+
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="showTab(event, 'applied')">Applied Jobs</button>
+      <button class="tab-btn" onclick="showTab(event, 'shortlisted')">Shortlisted</button>
+      <button class="tab-btn" onclick="showTab(event, 'interview')">Interview Schedule</button>
+    </div>
+
+    <div id="applied" class="tab-content active">
+      <div class="job-card">
+        <div class="job-title">Frontend Developer</div>
+        <div class="job-details">Company: TechVision | Applied on: 20 May 2025</div>
+      </div>
+      <div class="job-card">
+        <div class="job-title">Backend Engineer</div>
+        <div class="job-details">Company: CodeBase | Applied on: 22 May 2025</div>
+      </div>
+    </div>
+
+    <div id="shortlisted" class="tab-content">
+      <div class="job-card">
+        <div class="job-title">Backend Engineer</div>
+        <div class="job-details">Company: CodeBase | Shortlisted on: 24 May 2025</div>
+      </div>
+    </div>
+
+    <div id="interview" class="tab-content">
+      <div class="job-card">
+        <div class="job-title">Backend Engineer</div>
+        <div class="job-details">Interview Date: 28 May 2025 | Time: 10:00 AM | Platform: Zoom</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showTab(event, tabId) {
+      const tabs = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-btn');
+
+      tabs.forEach(tab => tab.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
+ 

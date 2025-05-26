@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Application Submitted</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet"/>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <style>
-    * {
+* {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -137,27 +128,3 @@
         flex-direction: column;
       }
     }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <div class="icon">
-      <i class="fas fa-check-circle"></i>
-    </div>
-    <h1>Application Submitted Successfully</h1>
-    <p>Thank you for applying. We’ll get back to you soon via email with further details.</p>
-
-    <div class="newsletter">
-      <h3>Stay Updated! Subscribe to Our Newsletter</h3>
-      <form action="#" method="post">
-        <input type="email" placeholder="Enter your email address" required />
-        <button type="submit">Subscribe</button>
-      </form>
-    </div>
-
-    <a href="jobportal.html" class="btn-portal">⬅ Back to Job Portal</a>
-  </div>
-
-</body>
-</html>

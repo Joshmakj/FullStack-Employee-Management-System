@@ -251,7 +251,22 @@
       </div>
     </div>
   </div>
-
+<!-- Add this inside <body>, near bottom, before </body> -->
+<div id="interviewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999;">
+  <div style="background:#fff; padding:20px; max-width:400px; margin:100px auto; border-radius:8px; position:relative;">
+    <h3>Schedule Interview</h3>
+    <form id="scheduleForm">
+      <label>Date:</label><br/>
+      <input type="date" id="interviewDate" required style="width:100%; margin-bottom:10px;"><br/>
+      <label>Day:</label><br/>
+      <input type="text" id="interviewDay" placeholder="e.g., Monday" required style="width:100%; margin-bottom:10px;"><br/>
+      <label>Time:</label><br/>
+      <input type="time" id="interviewTime" required style="width:100%; margin-bottom:15px;"><br/>
+      <button type="submit" class="btn">Set Interview</button>
+      <button type="button" class="btn" onclick="closeModal()" style="background:#777; margin-left:10px;">Cancel</button>
+    </form>
+  </div>
+</div>
   <script>
      const toggleBtn = document.getElementById('toggleBtn');
   const container = document.getElementById('mainContainer');
@@ -302,6 +317,54 @@
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('collapsed');
     }
+    <!-- Add this to your existing <script> tag at the bottom -->
+let currentApplicantRow = null;
+
+function shortlist(button) {
+  const row = button.closest('tr');
+  const job = row.getAttribute('data-job').toLowerCase();
+  const resume = row.getAttribute('data-resume').toLowerCase();
+  const match = resume.includes(job.split(' ')[0]);
+
+  alert(match ? 'Applicant shortlisted based on keyword match.' : 'Applicant not matched closely with job keywords.');
+  if (match) {
+    row.setAttribute('data-shortlisted', 'true');
+    button.textContent = 'Shortlisted';
+    button.disabled = true;
+
+    // Add interview button only if not already present
+    if (!row.querySelector('.interview-btn')) {
+      const interviewBtn = document.createElement('button');
+      interviewBtn.className = 'btn interview-btn';
+      interviewBtn.textContent = 'Schedule Interview';
+      interviewBtn.onclick = () => openModal(row);
+      row.cells[6].appendChild(interviewBtn);
+    }
+
+    filterApplicants();
+  }
+}
+
+function openModal(row) {
+  currentApplicantRow = row;
+  document.getElementById('interviewModal').style.display = 'block';
+}
+
+function closeModal() {
+  document.getElementById('interviewModal').style.display = 'none';
+  document.getElementById('scheduleForm').reset();
+}
+
+document.getElementById('scheduleForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const date = document.getElementById('interviewDate').value;
+  const day = document.getElementById('interviewDay').value;
+  const time = document.getElementById('interviewTime').value;
+
+  alert(`Interview scheduled on ${day}, ${date} at ${time}.`);
+  closeModal();
+});
+
   </script>
 </body>
 </html>

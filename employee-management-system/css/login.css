@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/navbar.css" />
-    <style>
-        .loginsection {
+  .loginsection {
   display: flex;
   align-items: center;
   justify-content: center !important;
@@ -447,130 +436,18 @@ font-size: 14px;
   color: white;
   transform: translateY(-2px);
 }
+    .login-text {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.875rem;
+    }
 
-  </style>
+    .login-text a {
+      color: #d32f2f;
+      font-weight: bold;
+      text-decoration: none;
+    }
 
- 
-</head>
-<body>
-      <section class="headersection">
-  <header>
-     <div class="logo">
-    <i class="bi bi-lightning-charge-fill"></i>
-    Core<span>Edge</span>
-  </div>
-  
-    <nav>
-      <ul class="main-menu">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li><a href="loginpage.html">Login</a></li>
-        <li><a href="jobportal.html">Job Portal</a></li>
-      </ul>
-      <ul class="social-menu">
-        <li><a href="https://x.com/"><i class="fas fa-times"></a></i></li>
-        <li><a href="https://www.facebook.com/"><i class="fab fa-facebook"></a></i></li>
-        <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></a></i></li>
-        <li><a href="https://www.linkedin.com/"><i class="fab fa-linkedin"></a></i></li>
-      </ul>
-    </nav>
-  </header>
-  </section>
-
-  <section class="loginsection">
-  <div class="container" role="main" aria-label="Login form">
-    <div class="left-panel" aria-hidden="true">
-    <img src="assets/img/office-removebg-preview.png" alt="React icon" width="200" height="200" />
-      <h1>Welcome Back!</h1>
-      <p>Power your workforce with precision. Secure login for streamlined employee management.</p>
-    </div>
-    <div class="right-panel">
-      <h2>Sign In</h2>
-      <p>Enter your credentials to access the platform</p>
-      <form>
-        <div class="input-box">
-          <i class="fas fa-user" aria-hidden="true"></i>
-          <input type="text" placeholder="User name" autocomplete="username" aria-label="User name" required />
-        </div>
-        <div class="input-box">
-          <i class="fas fa-lock" aria-hidden="true"></i>
-          <input type="password" placeholder="Password" id="password" autocomplete="current-password" aria-label="Password" required />
-          <i class="fas fa-eye toggle-password" id="togglePassword" aria-label="Toggle password visibility" role="button" tabindex="0"></i>
-        </div>
-        <div class="options">
-          <label><input type="checkbox" /> Remember me</label>
-          <a href="forgot_password.html" tabindex="0">Forgot password?</a>
-        </div>
-        <button type="submit" class="btn primary">Login</button>
-        <div class="divider">or</div>
-        <button type="button" class="btn google" aria-label="Login with Google">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google icon" />
-          Login with Google
-        </button>
-       
-      </form>
-    </div>
-  </div>
-</section>
-
-  <!-- Footer -->
-<footer>
-  <div class="footer-container">
-    <div class="footer-top">
-      <div class="footer-logo-section">
-        <h3>EasyFolio</h3>
-        <p>Crafting exceptional digital experiences through design and development excellence.</p>
-      </div>
-      <div class="footer-links-section">
-        <h4>Quick Links</h4>
-        <ul class="footer-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-social-section">
-        <h4>Follow Us</h4>
-        <div class="footer-social-icons">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 EasyFolio. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
-
-  <script>
-    const toggle = document.getElementById('togglePassword');
-    const password = document.getElementById('password');
-
-    // Initialize icon to fa-eye (password hidden)
-    toggle.classList.add('fa-eye');
-
-    toggle.addEventListener('click', () => {
-      const isPassword = password.getAttribute('type') === 'password';
-      password.setAttribute('type', isPassword ? 'text' : 'password');
-      toggle.classList.toggle('fa-eye');
-      toggle.classList.toggle('fa-eye-slash');
-    });
-
-    // Make toggle keyboard accessible
-    toggle.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggle.click();
-      }
-    });
-  </script>
-
-
-
-</body>
-</html>
+    .login-text a:hover {
+      text-decoration: underline;
+    }
